@@ -3,11 +3,11 @@ const popup = document.querySelector('.popup');
 const popupButtonExit = document.querySelector('.popup__button-exit');
 
 editButton.addEventListener('click', function () {
-   popup.classList.remove('popup_opened');
+   popup.classList.add('popup_opened');
 })
 
 popupButtonExit.addEventListener('click', function () {
-    popup.classList.add('popup_opened');
+    popup.classList.remove('popup_opened');
 })
 
 const popupForm = document.querySelector('.popup__container');
@@ -26,22 +26,13 @@ const userProfession = 'Исследователь океана';
 profileProfession.textContent = userProfession;
 inputProfession.value = userProfession;
 
-inputButtonSave.addEventListener('click', function () {
-    profileName.textContent = inputName.value;
-    profileProfession.textContent = inputProfession.value;
-    popup.classList.add('popup_opened');
-})
-
 function handleFormSubmit (event) {
     event.preventDefault();
-    inputButtonSave.addEventListener('click', function () {
-        profileName.textContent = inputName.value;
-        profileProfession.textContent = inputProfession.value;
-        popup.classList.add('popup_opened');
-    })
+    profileName.textContent = inputName.value;
+    profileProfession.textContent = inputProfession.value;
+    popup.classList.remove('popup_opened');
 }
 
 
 popupForm.addEventListener('submit', handleFormSubmit);
-
 

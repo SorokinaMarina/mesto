@@ -1,9 +1,9 @@
 .popup__background {
     width: 100%;
-    background-color: #000;
-    opacity: 50%;
+    background-color: rgba(0, 0, 0, .5);
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    display: flex;
 }

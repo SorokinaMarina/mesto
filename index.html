@@ -11,99 +11,98 @@
     <div class="page">
         <header class="header">
             <img class="header__logo" src="./image/Vector.svg" alt="Логотип">
-            <div class="header__border"></div>
         </header>
 
         <main>
             <section class="profile">
                 <img class="profile__avatar" src="./image/Жак.jpg" alt="Жак-Ив Кусто">
-                <article class="profile__info">
+                <div class="profile__info">
                     <div class="profile__flex">
-                        <h1 class="profile__name"></h1>
-                        <button class="profile__edit-button" type="submit"></button>
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <button class="profile__edit-button" type="button"></button>
                     </div>
-                    <p class="profile__profession"></p>
-                </article>
-                <div class="profile__button">
-                    <button class="profile__add-button" type="submit"></button>
+                    <p class="profile__profession">Исследователь океана</p>
                 </div>
+                <button class="profile__add-button" type="button"></button>
             </section>
 
             <section class="elements">
-                <div class="element">
+                <article class="element">
                     <img class="element__image" src="./image/karachaevsk.jpg" alt="Карачаевск">
                     <div class="element__place">
                         <h2 class="element__title">Карачаевск</h2>
-                        <button class="element__button-like element__button-like_active"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img class="element__image" src="./image/elbrus.png" alt="Эльбрус">
                     <div class="element__place">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <button class="element__button-like element__button-like_active"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img class="element__image" src="./image/dombai.png" alt="Домбай">
                     <div class="element__place">
                         <h2 class="element__title">Домбай</h2>
-                        <button class="element__button-like element__button-like_active"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img class="element__image" src="./image/elbrus.png" alt="Эльбрус">
                     <div class="element__place">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <button class="element__button-like element__button-like_active"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img class="element__image" src="./image/dombai.png" alt="Домбай">
                     <div class="element__place">
                         <h2 class="element__title">Домбай</h2>
-                        <button class="element__button-like element__button-like_active"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img class="element__image" src="./image/karachaevsk.jpg" alt="Карачаевск">
                     <div class="element__place">
                         <h2 class="element__title">Карачаево-Черкессия</h2>
-                        <button class="element__button-like element__button-like_active"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
-                </div>
+                </article>
                 
             </section>
 
-            <section class="popup" >
-                <div class="popup__background">
-                    <form class="popup__container" action="#">
-                        <h2 class="popup__title">Редактировать профиль</h2>
-                        <fieldset class="popup__fieldset">
-                            <label for="popup__input-name">
-                                <input class="popup__input-name" id="popup__input-name" type="text" placeholder="Жак-Ив Кусто" value="Жак-Ив Кусто">
-                            </label>
-                            <label for="popup__input-profession">
-                                <input class="popup__input-profession" id="popup__input-profession" type="text" placeholder="Исследователь океана" value="Исследователь океана">
-                            </label>
-                            <button class="popup__button-save" type="submit">Сохранить</button>
-                        </fieldset>
-                        <button class="popup__button-exit" type="button"></button>
-                    </form>
-                </div>
-            </section>
         </main>
 
         <footer class="footer">
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
+
+        <div class="popup">
+            <div class="popup__container">
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form action="#" name="popup__form" class="popup__form">
+                    <fieldset class="popup__fieldset">
+                        <label for="popup__input-name">
+                            <input class="popup__input popup__input_type_name" id="popup__input-name" name="name" type="text" placeholder="Жак-Ив Кусто" value="Жак-Ив Кусто">
+                        </label>
+                        <label for="popup__input-profession">
+                            <input class="popup__input popup__input_type_profession" id="popup__input-profession" name="profession" type="text" placeholder="Исследователь океана" value="Исследователь океана">
+                        </label>
+                        <button class="popup__button-save" type="submit">Сохранить</button>
+                    </fieldset>
+                </form>
+                <button class="popup__button-exit" type="button"></button>
+            </div>
+        </div>
+
     </div>
     
-    <script src="./script/index.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>

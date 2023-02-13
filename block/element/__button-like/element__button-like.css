@@ -10,6 +10,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;
+    padding: 0;
 }
 
 .element__button-like:hover {

@@ -11,6 +11,7 @@
     background-size: cover;
     border: 0;
     cursor: pointer;
+    padding: 0;
 }
 
 .popup__button-exit:hover {

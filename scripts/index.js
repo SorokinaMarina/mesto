@@ -20,34 +20,6 @@ const elementImage = elements.querySelector('.element__image');
 const elementHeading = elements.querySelector('.element__title');
 
 
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ]; 
-
-
 initialCards.forEach(function (item) {
     addCard(createCard(item.name, item.link));
 })
@@ -68,14 +40,17 @@ function createCard (name, link) {
     elementButtonTrash.addEventListener('click', handleDeleteButtonClick);
     elementButtonLike.addEventListener('click', clickLike);
 
-    cardImage.addEventListener('click', function (event) {
-            openPopup(popupImages);
-            popupImage.src = link;
-            popupImage.alt = name;
-            popupHeading.textContent = name;
-     });
+    cardImage.addEventListener('click', () => addLinkAndNameToPopupImage(name, link));
 
     return cardElement;
+}
+
+//Функция передачи параметров в попап с картинкой
+function addLinkAndNameToPopupImage (name, link) {
+    popupImage.src = link;
+    popupImage.alt = name;
+    popupHeading.textContent = name;
+    openPopup(popupImages);
 }
 
 
@@ -94,8 +69,8 @@ function handleFormSubmitEdit (event) {
 
 function handleFormSubmitAddPhoto (event) {
     event.preventDefault();
-    closePopup(photoPopup);
     addCard(createCard(inputPictireTitle.value, inputLink.value));
+    closePopup(photoPopup);
 }
 
 //Функция удаления карточек для кнопки "корзина"
@@ -134,15 +109,15 @@ function openPopup (popup) {
 }
 
 function addButtonClickHandler () { 
-    openPopup(photoPopup);
     inputPictireTitle.value = '';
     inputLink.value = '';
+    openPopup(photoPopup);
 }
 
 function editButtonClickHandler () { 
-    openPopup(popupEditProfile);
     inputName.value = profileName.textContent;
     inputProfession.value = profileProfession.textContent; 
+    openPopup(popupEditProfile);
 }
 
 function openImage () {

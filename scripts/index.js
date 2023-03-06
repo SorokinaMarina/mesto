@@ -18,6 +18,8 @@ const popupImage = popupImages.querySelector('.popup__image');
 const popupHeading = popupImages.querySelector('.popup__heading');
 const elementImage = elements.querySelector('.element__image');
 const elementHeading = elements.querySelector('.element__title');
+const popups = document.querySelectorAll('.popup');
+
 
 
 initialCards.forEach(function (item) {
@@ -86,16 +88,26 @@ function clickLike (event) {
     buttonLike.classList.toggle('element__button-like_active');
 }
 
+//Закрытие попапа на Esc
+document.addEventListener('keydown', clickButtonEsc);
 
-//Функция закрытия попапа на крестик
-popupButtonsExit.forEach(function (item) {
-    item.addEventListener('click', clickButtonExit);
+function clickButtonEsc (event) {
+    if (event.key === 'Escape') {
+        popups.forEach(function (popup) {
+            closePopup(popup);
+        })
+    }  
+}
+
+//Функция закрытия попапов на крестик и фон
+popups.forEach(function (item) {
+    item.addEventListener('mousedown', exitFromPopup);
 })
 
-
-function clickButtonExit (event) {
-    const clickButton = event.target.closest('.popup');
-    closePopup(clickButton);
+function exitFromPopup (event) {
+    if (event.target.classList.contains('popup__button-exit') || event.target.classList.contains('popup')){
+        closePopup(event.currentTarget);
+    }
 }
 
 function closePopup(popup) {
@@ -130,7 +142,20 @@ photoButton.addEventListener('click', addButtonClickHandler);
 editButton.addEventListener('click', editButtonClickHandler);
 photoPopupContainer.addEventListener('submit', handleFormSubmitAddPhoto);
 
+//Функция закрытия попапа на крестик
+// popupButtonsExit.forEach(function (item) {
+//     item.addEventListener('click', clickButtonExit);
+// })
 
+
+// function clickButtonExit (event) {
+//     const clickButton = event.target.closest('.popup');
+//     closePopup(clickButton);
+// }
+
+// function closePopup(popup) {
+//     popup.classList.remove('popup_opened');
+// }
 
 
 

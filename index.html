@@ -39,13 +39,15 @@
         <div class="popup" id="popup-profile">
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form action="#" name="popup__form" class="popup__form">
+                <form action="#" name="popup__form" class="popup__form" id="popup__form-profile" novalidate>
                     <fieldset class="popup__fieldset">
                         <label for="popup__input-name">
-                            <input class="popup__input popup__input_type_name" id="popup__input-name" name="name" type="text" placeholder="Жак-Ив Кусто" value="Жак-Ив Кусто">
+                            <input class="popup__input popup__input_type_name" id="popup__input-name" minlength="2" maxlength="40" name="name" type="text" placeholder="Жак-Ив Кусто" value="Жак-Ив Кусто" required>
+                            <span class="popup__input-error popup__input-name-error"></span>
                         </label>
                         <label for="popup__input-profession">
-                            <input class="popup__input popup__input_type_profession" id="popup__input-profession" name="profession" type="text" placeholder="Исследователь океана" value="Исследователь океана">
+                            <input class="popup__input popup__input_type_profession" id="popup__input-profession" minlength="2" maxlength="200" name="profession" type="text" placeholder="Исследователь океана" value="Исследователь океана" required>
+                            <span class="popup__input-error popup__input-profession-error"></span>
                         </label>
                         <button class="popup__button-save" type="submit">Сохранить</button>
                     </fieldset>
@@ -57,13 +59,15 @@
         <div class="popup" id="popup-add-photo">
             <div class="popup__container" id="popup__container-add-photo">
                 <h2 class="popup__title">Новое место</h2>
-                <form action="#" name="popup__form" class="popup__form">
+                <form action="#" name="popup__form" class="popup__form" id="popup__form-add-photo" novalidate>
                     <fieldset class="popup__fieldset">
                         <label for="popup__input-title-pictire">
-                            <input class="popup__input popup__input_type_title" id="popup__input-title-pictire" name="title" type="text" placeholder="Название" value="Название">
+                            <input class="popup__input popup__input_type_title" id="popup__input-title-pictire" minlength="2" maxlength="30" name="title" type="text" placeholder="Название" value="Название" required>
+                            <span class="popup__input-error popup__input-title-pictire-error"></span>
                         </label>
                         <label for="popup__input-link">
-                            <input class="popup__input popup__input_type_link" id="popup__input-link" name="link" type="text" placeholder="Ссылка на картинку" value="Ссылка на картинку">
+                            <input class="popup__input popup__input_type_link" id="popup__input-link" name="link" type="url" placeholder="Ссылка на картинку" value="Ссылка на картинку" required>
+                            <span class="popup__input-error popup__input-link-error"></span>
                         </label>
                         <button class="popup__button-save" type="submit" id="popup__button-save">Создать</button>
                     </fieldset>
@@ -92,6 +96,7 @@
         </template>
 
     </div>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/array.js"></script>
     <script src="./scripts/index.js"></script>
     

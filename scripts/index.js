@@ -1,28 +1,33 @@
-import {ArrChart} from './array';
-import {ValidateChart} from './validate';
-import {CardChart} from './card';
+import {Card, CreateCard} from './Сard.js';
+import {initialCards} from './array.js';
+import {FormValidator} from './FormValidator.js';
 
-    const editButton = document.querySelector('.profile__edit-button');
-    const popupEditProfile = document.querySelector('#popup-profile');
-    const photoPopup = document.querySelector('#popup-add-photo');
-    const popupImages = document.querySelector('#popup-images');
-    const popupContainerWithForm = document.querySelector('.popup__container');
-    const inputName = popupContainerWithForm.querySelector('.popup__input_type_name');
-    const inputProfession = popupContainerWithForm.querySelector('.popup__input_type_profession');
-    const profileName = document.querySelector('.profile__name');
-    const profileProfession = document.querySelector('.profile__profession');
-    const photoButton = document.querySelector('.profile__add-button');
-    const photoPopupContainer = document.querySelector('#popup__container-add-photo');
-    const inputPictireTitle = photoPopup.querySelector('.popup__input_type_title');
-    const inputLink = photoPopup.querySelector('.popup__input_type_link');
-    const elements = document.querySelector('.elements');
-    const popupCardImageFull = popupImages.querySelector('.popup__image');
-    const popupImageHeading = popupImages.querySelector('.popup__heading');
-    const popups = document.querySelectorAll('.popup');
-    const popupSpanError = document.querySelectorAll('.popup__input-error');
-    const popupInputError = document.querySelectorAll('.popup__input-error');
-    const popupFormEditProfile = document.querySelector('#popup__form-profile');
-    const popupFormAddPhoto = document.querySelector('#popup__form-add-photo');
+const editButton = document.querySelector('.profile__edit-button');
+const popupEditProfile = document.querySelector('#popup-profile');
+const photoPopup = document.querySelector('#popup-add-photo');
+const popupContainerWithForm = document.querySelector('.popup__container');
+const inputName = popupContainerWithForm.querySelector('.popup__input_type_name');
+const inputProfession = popupContainerWithForm.querySelector('.popup__input_type_profession');
+const profileName = document.querySelector('.profile__name');
+const profileProfession = document.querySelector('.profile__profession');
+const photoButton = document.querySelector('.profile__add-button');
+const photoPopupContainer = document.querySelector('#popup__container-add-photo');
+const inputPictireTitle = photoPopup.querySelector('.popup__input_type_title');
+const inputLink = photoPopup.querySelector('.popup__input_type_link');
+const elements = document.querySelector('.elements');
+const popups = document.querySelectorAll('.popup');
+const popupFormEditProfile = document.querySelector('#popup__form-profile');
+const popupFormAddPhoto = document.querySelector('#popup__form-add-photo');
+
+//Объект для FormValidator
+const formObject = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button-save',
+    inactiveButtonClass: 'popup__button-save_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_active'
+}    
 
 //Проходимся по массиву объектов
 initialCards.forEach(function (data) {
@@ -43,7 +48,7 @@ function handleFormSubmitEdit (event) {
 function handleFormSubmitAddPhoto (event) {
     event.preventDefault();
 
-    const card = new createCard(inputPictireTitle.value, inputLink.value, '.template-add-cards');
+    const card = new CreateCard(inputPictireTitle.value, inputLink.value, '.template-add-cards');
     const cardElement = card.generateCard();
 
     addCard(cardElement);
@@ -56,7 +61,7 @@ function addCard(card) {
 }
 
 //Функция открытия попапов
-function openPopup (popup) {
+export function openPopup (popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', clickButtonEsc);
 }
@@ -105,6 +110,11 @@ editButton.addEventListener('click', editButtonClickHandler);
 photoButton.addEventListener('click', addButtonClickHandler);
 popupContainerWithForm.addEventListener('submit', handleFormSubmitEdit);
 photoPopupContainer.addEventListener('submit', handleFormSubmitAddPhoto);
+
+const formValidationEdit = new FormValidator(formObject, '#popup__form-profile');
+formValidationEdit.enableValidation();
+const formValidationAddPhoto = new FormValidator(formObject, '#popup__form-add-photo');
+formValidationAddPhoto.enableValidation();
 
 
 

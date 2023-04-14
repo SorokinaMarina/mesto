@@ -1,6 +1,7 @@
 export class FormValidator {
     constructor (config, form) {
         this._form = form;
+        this._formElement = document.querySelector(this._form);
         this._formSelector = config.formSelector;
         this._input = config.inputSelector;
         this._submit = config.submitButtonSelector;
@@ -9,7 +10,7 @@ export class FormValidator {
         this._error = config.errorClass;
         this._buttonElement = document.querySelector(this._form).querySelector(this._submit);
         this._inputList = Array.from(document.querySelector(this._form).querySelectorAll(this._input));
-        this._formElement = document.querySelector(this._form);
+        
     }
 
     _showInputError (inputElement, errorMessage) {

@@ -1,10 +1,10 @@
 export class Card {
-    constructor (name, link, templateSelector, handleCreateCard) {
+    constructor (name, link, templateSelector, handleCardClick) {
         this._name = name;
         this._link = link;
         this._templateSelector = templateSelector;
         this._image;
-        this._handleCreateCard = handleCreateCard;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -38,7 +38,7 @@ export class Card {
         })
         
         this._image.addEventListener('click', () => {
-            this._handleCreateCard(this._name, this._link);
+            this._handleCardClick(this._name, this._link);
         })
     }
 
@@ -51,5 +51,6 @@ export class Card {
     }
 
 }
+
 
 

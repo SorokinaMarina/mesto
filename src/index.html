@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
 <body>
     <div class="page">
         <header class="header">
-            <img class="header__logo" src="./image/Vector.svg" alt="Логотип">
+            <img class="header__logo" src="<%=require('./image/Vector.svg')%>" alt="Логотип">
         </header>
 
         <main class="main">
             <section class="profile">
-                <img class="profile__avatar" src="./image/Жак.jpg" alt="Жак-Ив Кусто">
+                <img class="profile__avatar" src="<%=require('./image/Жак.jpg')%>" alt="Жак-Ив Кусто">
                 <div class="profile__info">
                     <div class="profile__flex">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -96,16 +95,6 @@
         </template>
 
     </div>
-    
-    <script type="module" src="./components/PopupWithForm.js"></script>
-    <script type="module" src="./components/UserInfo.js"></script>
-    <script type="module" src="./components/PopupWithImage.js"></script>
-    <script type="module" src="./components/Popup.js"></script>
-    <script type="module" src="./components/Section.js"></script>
-    <script type="module" src="./components/FormValidator.js"></script>
-    <script type="module" src="./utils/constants.js"></script>
-    <script type="module" src="./components/Сard.js"></script>
-    <script type="module" src="./pages/index.js"></script>
     
 </body>
 </html>

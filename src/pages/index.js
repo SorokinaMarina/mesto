@@ -7,6 +7,29 @@ import {PopupWithImage } from '../components/PopupWithImage.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 
+//Импорт картинок
+import JackImage from '../image/Жак.jpg';
+import addButtonImage from '../image/КнопкаДобавить.png';
+import addButtonImageSvg from '../image/add-button.svg';
+import editButtonImage from '../image/edit.svg';
+import buttonLikeActiveImage from '../image/like-active.svg';
+import buttonLikeImage from '../image/like.svg';
+import buttonTrashImage from '../image/trash.svg';
+import buttonVectorImage from '../image/Vector.svg';
+
+const images = {
+    name: 'Jack', image: JackImage,
+    name: 'КнопкаДобавить', image: addButtonImage,
+    name: 'ДобавитьSvg', image: addButtonImageSvg,
+    name: 'ЗакрытьSvg', image: editButtonImage,
+    name: 'ЛайкАктивный', image: buttonLikeActiveImage,
+    name: 'Лайк', image: buttonLikeImage,
+    name: 'Удалить', image: buttonTrashImage,
+    name: 'Вектор', image: buttonVectorImage
+}
+
+//Импортируем css
+import './index.css';
 
 //Объект для FormValidator
 const validationConfig = {

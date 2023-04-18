@@ -28,8 +28,8 @@ export class FormValidator {
         inputFormError.textContent = '';
     }
 
-    _hasInvalidInput (inputList) {
-        return inputList.some((inputElement) => {
+    _hasInvalidInput () {
+        return this._inputList.some((inputElement) => {
             return !inputElement.validity.valid;
         })
     }

@@ -5,8 +5,8 @@ export class PopupWithForm extends Popup {
         super(popupSelector);
 
         this._handleFormSubmit = handleFormSubmit;
-        this._element = document.querySelector('.popup__form');
-        this._inputList = Array.from(this._element.querySelectorAll('.popup__input'));
+        this._formElement = document.querySelector('.popup__form');
+        this._inputList = Array.from(this._formElement.querySelectorAll('.popup__input'));
     }
 
     _getInputValues () {
@@ -17,15 +17,22 @@ export class PopupWithForm extends Popup {
         return this._formValues;
     }
 
-    setInputValues ({name, profession}) {
-        this._inputName = this._element.querySelector('#popup__input-name');
-        this._inputProfession = this._element.querySelector('#popup__input-profession');
-        this._inputName.value = name;
-        this._inputProfession.value = profession;       
+    setInputValues (data) {
+        this._inputList.forEach(item => {
+            if (item.name) {
+                item.value = data[item.name]
+            } else {
+                item.value = '';
+            }
+        }) 
+        
+        // this._inputList.forEach(item => {
+        //     item.value = data[item.name] ?? '';
+        // })
     }
 
     setEventListeners() {
-        this._element.addEventListener('submit', (event) => {
+        this._formElement.addEventListener('submit', (event) => {
             event.preventDefault();
         })
 
@@ -34,6 +41,6 @@ export class PopupWithForm extends Popup {
 
     close() {
         super.close();
-        this._element.reset();
+        this._formElement.reset();
     }
 }

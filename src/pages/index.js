@@ -1,5 +1,5 @@
 import {Card} from '../components/Сard.js';
-import {editButton, popupEditProfile, photoPopup, popupContainerWithForm, profileName, profileProfession, photoButton, photoPopupContainer, inputPictireTitle, inputLink, elements, popupImages, popupCardImageFull, popupImageHeading, initialCards} from '../utils/constants.js';
+import {editButton, popupContainerWithForm, profileName, profileProfession, photoButton, photoPopupContainer, inputPictireTitle, inputLink, elements, popupImages, popupCardImageFull, popupImageHeading, initialCards} from '../utils/constants.js';
 import {FormValidator} from '../components/FormValidator.js';
 import {Section} from '../components/Section.js';
 import {Popup} from '../components/Popup.js';
@@ -45,11 +45,11 @@ const validationConfig = {
 const userInfo = new UserInfo ({profileName: profileName, profileProfession: profileProfession});
 
 //Класс, отвечающий за редактирование полей формы
-const popupWithFormEdit = new PopupWithForm (popupEditProfile, { handleFormSubmit: (formData) => {
+const popupWithFormEdit = new PopupWithForm ('#popup-profile', { handleFormSubmit: (formData) => {
     userInfo.setUserInfo(formData);
 }});
 
-const popupWithFormPhoto = new PopupWithForm (photoPopup, { handleFormSubmit: (formData) => {
+const popupWithFormPhoto = new PopupWithForm ('#popup-add-photo', { handleFormSubmit: (formData) => {
     userInfo.setUserInfo(formData);
     createCard(inputPictireTitle.value, inputLink.value, '.template-add-cards', handleCardClick);
 }});
@@ -57,9 +57,9 @@ const popupWithFormPhoto = new PopupWithForm (photoPopup, { handleFormSubmit: (f
 
 //Функция, которая передаёт данные в созданную карточку
 const handleCardClick = (name, link) => {
-    const popupWithImage = new PopupWithImage (popupImages, {imageFull: popupCardImageFull, imageHeading: popupImageHeading, name: name, link: link});
+    const popupWithImage = new PopupWithImage ('#popup-images', {name: name, link: link});
     popupWithImage.setEventListeners();  
-    popupWithImage.open(); 
+    popupWithImage.open(popupCardImageFull, popupImageHeading); 
 }
 
 //Добавляем карточку с помощью Section
@@ -100,13 +100,13 @@ function addButtonClickHandler () {
     inputPictireTitle.value = '';
     inputLink.value = '';
     formValidationAddPhoto.disableSubmitButton();
-    openPopup(photoPopup);
+    openPopup('#popup-add-photo');
 }
 
 function editButtonClickHandler () {  
     popupWithFormEdit.setInputValues(userInfo.getUserInfo());
     formValidationEdit.disableSubmitButton();
-    openPopup(popupEditProfile);
+    openPopup('#popup-profile');
 }
 
 //Вызовы функций

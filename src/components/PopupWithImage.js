@@ -1,16 +1,16 @@
 import { Popup } from "./Popup.js";
 
 export class PopupWithImage extends Popup {
-    constructor (popupSelector, {name, link}) {
+    constructor (popupSelector, {cardImage, cardHeading}) {
         super(popupSelector);
-        this._name = name;
-        this._link = link;
+        this._cardImage = cardImage;
+        this._cardHeading = cardHeading;
     }
 
-    open (cardImage, cardHeading) {
+    open (name, link) {
         super.open();
-        cardImage.src = this._link;
-        cardImage.alt = this._name;
-        cardHeading.textContent = this._name;
+        this._cardImage.src = link;
+        this._cardImage.alt = name;
+        this._cardHeading.textContent = name;
     }
 }

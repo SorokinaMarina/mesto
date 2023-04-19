@@ -1,5 +1,5 @@
 import {Card} from '../components/Сard.js';
-import {editButton, popupContainerWithForm, profileName, profileProfession, photoButton, photoPopupContainer, inputPictireTitle, inputLink, elements, popupImages, popupCardImageFull, popupImageHeading, initialCards} from '../utils/constants.js';
+import {editButton, popupContainerWithForm, profileName, profileProfession, photoButton, photoPopupContainer, inputPictireTitle, inputLink, elements, popupCardImageFull, popupImageHeading, initialCards} from '../utils/constants.js';
 import {FormValidator} from '../components/FormValidator.js';
 import {Section} from '../components/Section.js';
 import {Popup} from '../components/Popup.js';
@@ -50,16 +50,16 @@ const popupWithFormEdit = new PopupWithForm ('#popup-profile', { handleFormSubmi
 }});
 
 const popupWithFormPhoto = new PopupWithForm ('#popup-add-photo', { handleFormSubmit: (formData) => {
-    userInfo.setUserInfo(formData);
-    createCard(inputPictireTitle.value, inputLink.value, '.template-add-cards', handleCardClick);
+    createCard(formData.title, formData.link, '.template-add-cards', handleCardClick);
 }});
 
+//Класс, отвечающий за открытие картинки карточки
+const popupWithImage = new PopupWithImage ('#popup-images', {cardImage: popupCardImageFull, cardHeading: popupImageHeading});
+popupWithImage.setEventListeners();
 
 //Функция, которая передаёт данные в созданную карточку
-const handleCardClick = (name, link) => {
-    const popupWithImage = new PopupWithImage ('#popup-images', {name: name, link: link});
-    popupWithImage.setEventListeners();  
-    popupWithImage.open(popupCardImageFull, popupImageHeading); 
+const handleCardClick = (name, link) => {  
+    popupWithImage.open(name, link); 
 }
 
 //Добавляем карточку с помощью Section

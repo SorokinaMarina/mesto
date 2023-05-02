@@ -6,6 +6,8 @@ import {Popup} from '../components/Popup.js';
 import {PopupWithImage } from '../components/PopupWithImage.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import { Api } from '../components/Api.js';
+import { PopupConfirm } from '../components/PopupConfirm.js'
 
 //Импорт картинок
 import JackImage from '../image/Жак.jpg';
@@ -28,6 +30,7 @@ const images = {
     name: 'Вектор', image: buttonVectorImage
 }
 
+
 //Импортируем css
 import './index.css';
 
@@ -41,17 +44,48 @@ const validationConfig = {
     errorClass: 'popup__input-error_active'
 } 
 
+//Переменная с API
+const api = new Api('https://nomoreparties.co/v1/cohort-65', {authorization: 'b15bc02e-ae06-46a3-b490-b1ce7ba85320', "content-type": 'application/json; charset=UTF-8'});
+
 //Класс, отвечающий за информацию о пользователе
 const userInfo = new UserInfo ({profileName: profileName, profileProfession: profileProfession});
 
 //Класс, отвечающий за редактирование полей формы
 const popupWithFormEdit = new PopupWithForm ('#popup-profile', { handleFormSubmit: (formData) => {
-    userInfo.setUserInfo(formData);
+    api.editUserInfo(formData).then(data => {
+        userInfo.setUserInfo(data);
+    })
 }});
 
 const popupWithFormPhoto = new PopupWithForm ('#popup-add-photo', { handleFormSubmit: (formData) => {
-    createCard(formData.title, formData.link, '.template-add-cards', handleCardClick);
+    api.addCard(formData).then(card => {
+        createCard(card, '.template-add-cards', handleCardClick, userId);  
+    })
 }});
+
+//Запускаем одновременно метод получения карточки и метод получения информации о пользователе, достаём id пользователя
+let userId;
+
+api.getInitialInfo().then(data => {
+    const infoUser = data[0];
+    const cards = data[1];
+    userId = infoUser._id;
+    userInfo.setUserInfo(infoUser);
+    cardList.renderItems(cards);
+}).catch((error) => {
+    console.log(`Ошибка ${error}`);
+})
+
+//Удаление карточки
+const popupConfirm = new PopupConfirm('#popup-confirm', {handleSubmit: (cardId, cardElement) => {
+    api.deleteCard(cardId).then(() => {
+        cardElement.remove();
+        popupConfirm.close();
+    }).catch((error) => {
+        console.log(`Ошибка ${error}`);
+    })
+}})
+popupConfirm.setEventListeners();
 
 //Класс, отвечающий за открытие картинки карточки
 const popupWithImage = new PopupWithImage ('#popup-images', {cardImage: popupCardImageFull, cardHeading: popupImageHeading});
@@ -62,12 +96,9 @@ const handleCardClick = (name, link) => {
     popupWithImage.open(name, link); 
 }
 
-//Добавляем карточку с помощью Section
-const cardList = new Section ({items: initialCards, renderer: (item) => {
-    createCard(item.name, item.link, '.template-add-cards', handleCardClick);
+const cardList = new Section ({ renderer: (item) => {
+    createCard(item, '.template-add-cards', handleCardClick, userId);
 }}, elements);
-cardList.renderItems();
-
 
 //Функция закрытия попап на кнопку "Сохранить"
 function handleFormSubmitEdit () {
@@ -83,8 +114,23 @@ function handleFormSubmitAddPhoto () {
 }
 
 //Функция создания карточки
-function createCard (name, link, templateSelector, handleCardClick) {
-    const card = new Card(name, link, templateSelector, handleCardClick);
+function createCard (data, templateSelector, handleCardClick, cardId) {
+    const card = new Card(data, templateSelector, handleCardClick, cardId, {handleDeleteCard: (cardId, cardEl) => {
+        popupConfirm.open(cardId, cardEl);
+    }, addLike: () => {
+        api.addLike(data._id)
+        .then(response => {
+            card.like();
+            card.likesCount(response);
+        }).catch((error) => console.log(`Ошибка ${error}`))
+    }, deleteLike: () => {
+        api.deleteLike(data._id)
+        .then(response => {
+          card.dislike();
+          card.likesCount(response);
+        })
+        .catch((error) => console.log(`Ошибка ${error}`))
+    }});
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
 }
@@ -114,6 +160,7 @@ editButton.addEventListener('click', editButtonClickHandler);
 photoButton.addEventListener('click', addButtonClickHandler);
 popupContainerWithForm.addEventListener('submit', handleFormSubmitEdit);
 photoPopupContainer.addEventListener('submit', handleFormSubmitAddPhoto);
+
 
 const formValidationEdit = new FormValidator(validationConfig, '#popup__form-profile');
 formValidationEdit.enableValidation();

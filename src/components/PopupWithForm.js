@@ -9,6 +9,7 @@ export class PopupWithForm extends Popup {
         this._inputList = Array.from(this._formElement.querySelectorAll('.popup__input')); 
     }
 
+    //Функция возвращает объект,в значения ключей которого внесены данные из инпутов
     _getInputValues () {
         this._formValues = {};
         this._inputList.forEach(input => {
@@ -17,6 +18,7 @@ export class PopupWithForm extends Popup {
         return this._formValues;
     }
 
+    //Функция принимает объект, в котором хранятся данные со страницы и записывает их внутрь полей инпутов
     setInputValues (data) {
          this._inputList.forEach(item => {
             item.value = data[item.name] ?? '';
@@ -27,7 +29,7 @@ export class PopupWithForm extends Popup {
         this._formElement.addEventListener('submit', (event) => {
             event.preventDefault();
         })
-
+        
         this._handleFormSubmit(this._getInputValues());
     }
 

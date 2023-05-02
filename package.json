@@ -9,6 +9,10 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bambyary/mesto.git"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {

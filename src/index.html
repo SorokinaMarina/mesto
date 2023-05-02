@@ -17,10 +17,10 @@
                 <img class="profile__avatar" src="<%=require('./image/Жак.jpg')%>" alt="Жак-Ив Кусто">
                 <div class="profile__info">
                     <div class="profile__flex">
-                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <h1 class="profile__name"></h1>
                         <button class="profile__edit-button" type="button"></button>
                     </div>
-                    <p class="profile__profession">Исследователь океана</p>
+                    <p class="profile__profession"></p>
                 </div>
                 <button class="profile__add-button" type="button"></button>
             </section>
@@ -45,7 +45,7 @@
                             <span class="popup__input-error popup__input-name-error"></span>
                         </label>
                         <label for="popup__input-profession">
-                            <input class="popup__input popup__input_type_profession" id="popup__input-profession" minlength="2" maxlength="200" name="profession" type="text" placeholder="Вид деятельности" value="Исследователь океана" required>
+                            <input class="popup__input popup__input_type_profession" id="popup__input-profession" minlength="2" maxlength="200" name="about" type="text" placeholder="Вид деятельности" value="Исследователь океана" required>
                             <span class="popup__input-error popup__input-profession-error"></span>
                         </label>
                         <button class="popup__button-save" type="submit">Сохранить</button>
@@ -83,14 +83,29 @@
             </div>
         </div>
 
+        <div class="popup" id="popup-confirm">
+            <div class="popup__container" id="popup__container-confirm">
+                <h2 class="popup__title">Вы уверены?</h2>
+                <form action="#" name="confirmForm" class="popup__form" id="popup__confirm" novalidate>
+                    <fieldset class="popup__fieldset">
+                        <button class="popup__button-save" type="submit" id="popup__button-confirm">Да</button>
+                    </fieldset>
+                </form>
+                <button class="popup__button-exit" id="popup__button-confirm" type="button"></button>
+            </div>
+        </div>
+
         <template class="template-add-cards">
             <article class="element">
                 <img class="element__image" src="#" alt="#">
                 <div class="element__place">
                     <h2 class="element__title"></h2>
-                    <button class="element__button-like" type="button"></button>
+                    <div class="element__like-box">
+                        <button class="element__button-like" type="button"></button>
+                        <p class="element__like-length">0</p>
+                    </div>
                 </div>
-                <button class="element__button-trash" type="button"></button>
+                <button class="element__button-trash " type="button"></button>
             </article>
         </template>
 

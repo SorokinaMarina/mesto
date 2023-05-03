@@ -1,5 +1,5 @@
 import {Card} from '../components/Сard.js';
-import {editButton, popupContainerWithForm, profileName, profileProfession, photoButton, photoPopupContainer, inputPictireTitle, inputLink, elements, popupCardImageFull, popupImageHeading, initialCards} from '../utils/constants.js';
+import {editButton, popupContainerWithForm, profileName, profileAvatar, popupAvatar, profileEditAvatar, profileProfession, photoButton, photoPopupContainer, inputPictireTitle, inputLink, elements, popupCardImageFull, popupImageHeading, initialCards} from '../utils/constants.js';
 import {FormValidator} from '../components/FormValidator.js';
 import {Section} from '../components/Section.js';
 import {Popup} from '../components/Popup.js';
@@ -18,6 +18,7 @@ import buttonLikeActiveImage from '../image/like-active.svg';
 import buttonLikeImage from '../image/like.svg';
 import buttonTrashImage from '../image/trash.svg';
 import buttonVectorImage from '../image/Vector.svg';
+import editPencil from '../image/editPencil.svg'
 
 const images = {
     name: 'Jack', image: JackImage,
@@ -27,7 +28,8 @@ const images = {
     name: 'ЛайкАктивный', image: buttonLikeActiveImage,
     name: 'Лайк', image: buttonLikeImage,
     name: 'Удалить', image: buttonTrashImage,
-    name: 'Вектор', image: buttonVectorImage
+    name: 'Вектор', image: buttonVectorImage,
+    name: 'Карандаш', image: editPencil
 }
 
 
@@ -48,20 +50,35 @@ const validationConfig = {
 const api = new Api('https://nomoreparties.co/v1/cohort-65', {authorization: 'b15bc02e-ae06-46a3-b490-b1ce7ba85320', "content-type": 'application/json; charset=UTF-8'});
 
 //Класс, отвечающий за информацию о пользователе
-const userInfo = new UserInfo ({profileName: profileName, profileProfession: profileProfession});
+const userInfo = new UserInfo ({profileName: profileName, profileProfession: profileProfession, profileAvatar: profileAvatar});
 
 //Класс, отвечающий за редактирование полей формы
 const popupWithFormEdit = new PopupWithForm ('#popup-profile', { handleFormSubmit: (formData) => {
     api.editUserInfo(formData).then(data => {
         userInfo.setUserInfo(data);
+    }).catch(error => console.log(`Ошибка ${error}`))
+    .finally(() => {
+        popupWithFormEdit.renderLoading(false);
     })
 }});
 
 const popupWithFormPhoto = new PopupWithForm ('#popup-add-photo', { handleFormSubmit: (formData) => {
     api.addCard(formData).then(card => {
         createCard(card, '.template-add-cards', handleCardClick, userId);  
+    }).catch(error => console.log(`Ошибка ${error}`))
+    .finally(() => {
+        popupWithFormPhoto.renderLoading(false);
     })
 }});
+
+const popupWithFormAvatar = new PopupWithForm ('#popup-avatar', {handleFormSubmit: (formData) => {
+    api.editAvatar(formData).then(data => {
+        userInfo.setUserInfo(data);
+    }).catch(error => console.log(`Ошибка ${error}`))
+    .finally(() => {
+        popupWithFormAvatar.renderLoading(false);
+    })
+}})
 
 //Запускаем одновременно метод получения карточки и метод получения информации о пользователе, достаём id пользователя
 let userId;
@@ -113,6 +130,12 @@ function handleFormSubmitAddPhoto () {
     popupWithFormPhoto.close();
 }
 
+//Функция добавления аватара
+function handleFormSubmitAvatar () {
+    popupWithFormAvatar.setEventListeners();
+    popupWithFormAvatar.close();
+}
+
 //Функция создания карточки
 function createCard (data, templateSelector, handleCardClick, cardId) {
     const card = new Card(data, templateSelector, handleCardClick, cardId, {handleDeleteCard: (cardId, cardEl) => {
@@ -155,15 +178,24 @@ function editButtonClickHandler () {
     openPopup('#popup-profile');
 }
 
+function avatarButtonClickHandler () {
+    openPopup('#popup-avatar');
+    formValidationAvatar.disableSubmitButton();
+}
+
 //Вызовы функций
 editButton.addEventListener('click', editButtonClickHandler);
 photoButton.addEventListener('click', addButtonClickHandler);
 popupContainerWithForm.addEventListener('submit', handleFormSubmitEdit);
 photoPopupContainer.addEventListener('submit', handleFormSubmitAddPhoto);
+profileEditAvatar.addEventListener('click', avatarButtonClickHandler);
+popupAvatar.addEventListener('submit', handleFormSubmitAvatar);
 
 
 const formValidationEdit = new FormValidator(validationConfig, '#popup__form-profile');
 formValidationEdit.enableValidation();
 const formValidationAddPhoto = new FormValidator(validationConfig, '#popup__form-add-photo');
 formValidationAddPhoto.enableValidation();
+const formValidationAvatar = new FormValidator(validationConfig, '#popup-avatar-form');
+formValidationAvatar.enableValidation();
 

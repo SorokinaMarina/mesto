@@ -8,7 +8,12 @@ export class Api {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject(`Ошибка ${response.status}`)
+            }})
         .catch((error) => console.log(`Ошибка ${error}`))
     }
 
@@ -21,7 +26,12 @@ export class Api {
                 link: card.link
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject(`Ошибка ${response.status}`)
+            }})
         .catch((error) => console.log(`Ошибка ${error}`))
     }
 
@@ -30,8 +40,11 @@ export class Api {
             headers: this._headers
         })
         .then((response) => {
-            return response.json();
-        })
+            if(response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject(`Ошибка ${response.status}`)
+            }})
         .catch((error) => {
             console.log(`Ошибка ${error}`)
         })
@@ -46,7 +59,12 @@ export class Api {
                 about: data.about
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject(`Ошибка ${response.status}`)
+            }})
         .catch((error) => console.log(`Ошибка ${error}`))
     }
 
@@ -55,7 +73,12 @@ export class Api {
             method: "DELETE",
             headers: this._headers,
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject(`Ошибка ${response.status}`)
+            }})
         .catch((error) => console.log(`Ошибка ${error}`));
     }
 
@@ -64,9 +87,14 @@ export class Api {
             method: "PUT",
             headers: this._headers
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject(`Ошибка ${response.status}`)
+            }})
         .catch((error) => {
-            alert(console.log(`Ошибка ${error}`));
+            console.log(`Ошибка ${error}`);
         })
     }
 
@@ -75,7 +103,32 @@ export class Api {
             method: "DELETE",
             headers: this._headers
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject(`Ошибка ${response.status}`)
+            }})
+        .catch((error) => {
+            console.log(`Ошибка ${error}`);
+        })
+    }
+
+    editAvatar (data) {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+            method: "PATCH",
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar: data.avatar
+            })
+        })
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject(`Ошибка ${response.status}`)
+            }
+        })
         .catch((error) => {
             console.log(`Ошибка ${error}`);
         })

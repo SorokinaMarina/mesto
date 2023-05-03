@@ -33,7 +33,7 @@ export class Card {
     }
 
     likesCount (res) {
-        this._likesCount.textContent = `${res.likes.length}`;
+        this._likesCount.textContent = res.likes.length;
     }
 
     //Функция, возвращающая разметку

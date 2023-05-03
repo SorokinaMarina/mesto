@@ -10,7 +10,6 @@ export class FormValidator {
         this._error = config.errorClass;
         this._buttonElement = document.querySelector(this._form).querySelector(this._submit);
         this._inputList = Array.from(document.querySelector(this._form).querySelectorAll(this._input));
-        
     }
 
     _showInputError (inputElement, errorMessage) {

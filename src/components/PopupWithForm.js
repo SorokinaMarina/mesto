@@ -5,9 +5,8 @@ export class PopupWithForm extends Popup {
         super(popupSelector);
 
         this._handleFormSubmit = handleFormSubmit;
-        this._formElement = this._popupElement.querySelector('.popup__form');
-        this._inputList = Array.from(this._formElement.querySelectorAll('.popup__input')); 
-        this._formButton = this._formElement.querySelector('.popup__button-save');
+        this._inputList = Array.from(this._popupForm.querySelectorAll('.popup__input')); 
+        this._formButton = this._popupForm.querySelector('.popup__button-save');
     }
 
     //Функция возвращает объект,в значения ключей которого внесены данные из инпутов
@@ -31,7 +30,7 @@ export class PopupWithForm extends Popup {
         if (isLoading) {
             this._formButton.textContent = 'Сохранение...'
         } else {
-            if(this._formElement.classList.contains('popup__form-add-photo')) {
+            if(this._popupForm.classList.contains('popup__form-add-photo')) {
                 this._formButton.textContent = `Создать`;
             } else {
                 this._formButton.textContent = `Сохранить`;
@@ -40,16 +39,16 @@ export class PopupWithForm extends Popup {
     }
 
     setEventListeners() {
-        this._formElement.addEventListener('submit', (event) => {
+        super.setEventListeners();
+        this._popupForm.addEventListener('submit', (event) => {
             event.preventDefault();
+            this._handleFormSubmit(this._getInputValues());
+            this.renderLoading(true);
         })
-        
-        this.renderLoading(true);
-        this._handleFormSubmit(this._getInputValues());
     }
 
     close() {
         super.close();
-        this._formElement.reset();
+        this._popupForm.reset();
     }
 }

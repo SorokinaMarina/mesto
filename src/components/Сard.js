@@ -78,7 +78,7 @@ export class Card {
           });
  
           this._deleteButtonTrash.addEventListener('click', () => {
-            this._handleDeleteCard(this._cardId, this._element);
+            this._handleDeleteCard(this._cardId, this.removeCardElement.bind(this));
         })
         
         this._image.addEventListener('click', () => {
@@ -89,6 +89,10 @@ export class Card {
     _handleClickLike () {
         this._element.querySelector('.element__button-like').classList.toggle('element__button-like_active'); 
     }
+
+    removeCardElement () {
+        this._element.remove();
+    };
 
 }
 

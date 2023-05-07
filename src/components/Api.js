@@ -4,17 +4,21 @@ export class Api {
         this._headers = headers;
     }
 
+    _getResponseData (response) {
+        if(response.ok) {
+            return response.json()
+        } else {
+            return Promise.reject(`Ошибка ${response.status}`)
+        }
+    }
+
     getCards () {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers
         })
         .then(response => {
-            if(response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Ошибка ${response.status}`)
-            }})
-        .catch((error) => console.log(`Ошибка ${error}`))
+            return this._getResponseData(response);
+        })
     }
 
     addCard(card){
@@ -27,12 +31,8 @@ export class Api {
             })
         })
         .then(response => {
-            if(response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Ошибка ${response.status}`)
-            }})
-        .catch((error) => console.log(`Ошибка ${error}`))
+            return this._getResponseData(response);
+        })
     }
 
     getUserInfo() {
@@ -40,13 +40,7 @@ export class Api {
             headers: this._headers
         })
         .then((response) => {
-            if(response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Ошибка ${response.status}`)
-            }})
-        .catch((error) => {
-            console.log(`Ошибка ${error}`)
+            return this._getResponseData(response);
         })
     }
 
@@ -60,12 +54,8 @@ export class Api {
             })
         })
         .then(response => {
-            if(response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Ошибка ${response.status}`)
-            }})
-        .catch((error) => console.log(`Ошибка ${error}`))
+            return this._getResponseData(response);
+        })
     }
 
     deleteCard(cardId) {
@@ -74,12 +64,8 @@ export class Api {
             headers: this._headers,
         })
         .then(response => {
-            if(response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Ошибка ${response.status}`)
-            }})
-        .catch((error) => console.log(`Ошибка ${error}`));
+            return this._getResponseData(response);
+        })
     }
 
     addLike (cardId) {
@@ -88,13 +74,7 @@ export class Api {
             headers: this._headers
         })
         .then(response => {
-            if(response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Ошибка ${response.status}`)
-            }})
-        .catch((error) => {
-            console.log(`Ошибка ${error}`);
+            return this._getResponseData(response);
         })
     }
 
@@ -104,13 +84,7 @@ export class Api {
             headers: this._headers
         })
         .then(response => {
-            if(response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Ошибка ${response.status}`)
-            }})
-        .catch((error) => {
-            console.log(`Ошибка ${error}`);
+            return this._getResponseData(response);
         })
     }
 
@@ -123,14 +97,7 @@ export class Api {
             })
         })
         .then(response => {
-            if(response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Ошибка ${response.status}`)
-            }
-        })
-        .catch((error) => {
-            console.log(`Ошибка ${error}`);
+            return this._getResponseData(response);
         })
     }
 

@@ -4,13 +4,13 @@ export class PopupConfirm extends Popup {
     constructor (popupSelector, {handleSubmit}) {
         super (popupSelector);
         this._handleSubmit = handleSubmit;
-        this._popupForm = this._popupElement.querySelector('.popup__form');
     }
 
 
     _handleSubmitForm = (event) => {
         event.preventDefault();
-        this._handleSubmit (this._cardId, this._cardEl);
+        this._handleSubmit (this._cardId);
+        this._removeCardElement();
     }
 
     setEventListeners() {
@@ -18,10 +18,10 @@ export class PopupConfirm extends Popup {
         this._popupForm.addEventListener('submit', this._handleSubmitForm);
     }
 
-    open (cardId, cardEl) {
+    open (cardId, removeCardElement) {
         super.open();
         this._cardId = cardId;
-        this._cardEl = cardEl;
+        this._removeCardElement = removeCardElement;
     }
 
 
